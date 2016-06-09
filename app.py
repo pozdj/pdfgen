@@ -5,7 +5,7 @@ from creator import create
 
 s3 = boto3.resource('s3')
 def upload_s3(source_file, filename):
-  bucket_name = '153412-kkanclerz'
+  bucket_name = '167985-last'
   destination_filename = "albums/%s/%s" % (uuid4().hex, filename)
   print destination_filename
   bucket = s3.Bucket(bucket_name)
@@ -13,8 +13,8 @@ def upload_s3(source_file, filename):
   return destination_filename
 
 sqs = boto3.resource('sqs')
-albumRequests = sqs.get_queue_by_name(QueueName='kanclerj-album')
-bucket_address = 'https://s3.eu-central-1.amazonaws.com/153412-kkanclerz'
+albumRequests = sqs.get_queue_by_name(QueueName='last-album')
+bucket_address = 'https://s3.eu-central-1.amazonaws.com/167985-last'
 
 while True:
   for albumRequest in albumRequests.receive_messages():
@@ -22,7 +22,7 @@ while True:
     albumData = json.loads(albumRequest.body)
     pdf = create(albumData)
     dest = upload_s3(pdf.getvalue(), 'album.pdf')
-    send_email(albumData['sent_to'], 'Your album', 'download here: %s/%s' % (
+    send_email(albumData['sent_to'], 'Your album', 'Your album is ready. <a href="%s/%s">DOWNLOAD HERE</a>' % (
     bucket_address, dest))
     albumRequest.delete()
     print('request processing finished [X]')
