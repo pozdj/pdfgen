@@ -1,13 +1,25 @@
 <html>
 	<head>
+		<meta charset="UTF-8">
 	</head>
 	<body>
-	   <ul class="list-group">
-           {% for photo in variables.photos %}
-	    <li class="list-group-item">
-             <img src="{{ photo }}" class="img-circle" height="500" />
-            </li>
-	   {% endfor %}
-           </ul>
+		<div align="center">
+		 
+
+
+			{% if albumTitle %}
+				<h1>{{ albumTitle }}</h1>
+			{% else %}
+				<h1>Album bez tytułu</h1>
+			{% endif %}
+
+
+
+		
+			{% for photo in variables.photos %}
+					<p><img src="{{ photo }}" class="img-circle" width="70%" /></p>
+					<p></p>
+			{% endfor %}
+		</div>
 	</body>
 </html>
