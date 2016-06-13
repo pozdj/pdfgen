@@ -22,7 +22,7 @@ while True:
     albumData = json.loads(albumRequest.body)
     pdf = create(albumData)
     dest = upload_s3(pdf.getvalue(), 'album.pdf')
-    send_email(albumData['sent_to'], 'Your album', 'Your album is ready. <a href="%s/%s">DOWNLOAD HERE</a>' % (
+    send_email(albumData['sent_to'], 'Twój Album', 'Twój album został wygenerowany i jest gotowy do pobrania. <a href="%s/%s">Kliknij, aby pobrać pdf</a>' % (
     bucket_address, dest))
     albumRequest.delete()
     print('request processing finished [X]')
