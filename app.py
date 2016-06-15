@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import boto3, json, time
 from mail import send_email
 from uuid import uuid4
